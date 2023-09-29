@@ -26,13 +26,13 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlString, 'text/html');
 
-                // Extract the rank and total participation
-                const rankElement = doc.querySelector('.rank-number');
-                const participationElement = doc.querySelector('.total-competition-participation');
+                // Extract the rank and total participation using the specific class names
+                const rankElement = doc.querySelector('.Certificate__rank___1r4Yx .Certificate__number___17BtU strong:nth-child(1)');
+                const totalParticipationElement = doc.querySelector('.Certificate__rank___1r4Yx .Certificate__number___17BtU strong:nth-child(2)');
 
-                if (rankElement && participationElement) {
+                if (rankElement && totalParticipationElement) {
                     const currentRank = rankElement.textContent.trim();
-                    const totalParticipation = participationElement.textContent.trim();
+                    const totalParticipation = totalParticipationElement.textContent.trim();
 
                     // Update the HTML elements with the retrieved data
                     document.getElementById('currentRank').textContent = currentRank;
