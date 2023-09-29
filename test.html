@@ -1,45 +1,55 @@
-<script src="https://cdn.jsdelivr.net/npm/puppeteer@21.3.6/lib/cjs/puppeteer/puppeteer.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zindi Africa User Info</title>
+    <!-- Include Axios from jsdelivr -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Zindi Africa User Info</h1>
+    <p>Current Rank: <span id="currentRank">Loading...</span></p>
+    <p>Total Participation: <span id="totalParticipation">Loading...</span></p>
 
-<script>
-  const puppeteer = require('puppeteer');
+    <script>
+        // URL of the Zindi Africa user's certificate page
+        const url = 'https://zindi.africa/users/leeyuan/competitions/certificate';
 
-(async () => {
-  // Launch a headless browser
-  const browser = await puppeteer.launch();
+        // Function to fetch and parse the page
+        async function fetchUserInfo() {
+            try {
+                const response = await axios.get(url);
+                const htmlString = response.data;
 
-  // Create a new page
-  const page = await browser.newPage();
+                // Create a DOMParser to parse the HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlString, 'text/html');
 
-  // Navigate to the webpage you want to crawl
-  const url = 'https://zindi.africa/users/leeyuan/competitions/certificate';
-  await page.goto(url);
+                // Extract the rank and total participation
+                const rankElement = doc.querySelector('.rank-number');
+                const participationElement = doc.querySelector('.total-competition-participation');
 
-  // Wait for any dynamic content to load (you can adjust the wait time)
-  await page.waitForTimeout(3000);
+                if (rankElement && participationElement) {
+                    const currentRank = rankElement.textContent.trim();
+                    const totalParticipation = participationElement.textContent.trim();
 
-  // Extract data from the page
-  const userData = await page.evaluate(() => {
-    const username = document.querySelector('.Certificate__user___3EcBu strong').textContent;
-    const competitionTitle = document.querySelector('.Certificate__title___17qj6 span').textContent;
-    const competitionURL = document.querySelector('.Certificate__url___21UZ3').href;
-    const competitionSubtitle = document.querySelector('.Certificate__subtitle___1JP6p').textContent;
-    const competitionDates = document.querySelector('.Certificate__dates___oQe6D').textContent;
-    const rank = document.querySelector('.Certificate__number___17BtU strong').textContent;
+                    // Update the HTML elements with the retrieved data
+                    document.getElementById('currentRank').textContent = currentRank;
+                    document.getElementById('totalParticipation').textContent = totalParticipation;
+                } else {
+                    // Handle the case where the elements are not found
+                    document.getElementById('currentRank').textContent = 'N/A';
+                    document.getElementById('totalParticipation').textContent = 'N/A';
+                }
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+                // Handle the error, e.g., display an error message
+            }
+        }
 
-    return {
-      username,
-      competitionTitle,
-      competitionURL,
-      competitionSubtitle,
-      competitionDates,
-      rank,
-    };
-  });
-
-  console.log('User Data:', userData);
-
-  // Close the browser
-  await browser.close();
-})();
-
-</script>
+        // Call the fetchUserInfo function to retrieve and display the data
+        fetchUserInfo();
+    </script>
+</body>
+</html>
