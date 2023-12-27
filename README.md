@@ -1,6 +1,6 @@
 # ITU 5G Challenge 2023
 
-<img src="https://itu5g.gd.edu.kg/bg.png" width="400px"/>
+<img src="https://itu5g.gd.edu.kg/bg.jpg" width="400px"/>
 
 [Version 1 (current)](https://itu5g.gd.edu.kg/)
 
