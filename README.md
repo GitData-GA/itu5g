@@ -11,7 +11,7 @@ This GitHub repository presents our solution to the International Telecommunicat
 
 1. Zhilu Chen (<img src="https://www.gd.edu.kg/images/emails/lucch.png"/>)
 2. Rui Hu
-3. Hengyuan Liu (<img src="https://www.gd.edu.kg/images/emails/hyliu.png"/>)
+3. Hengyuan Liu (<img src="https://www.gd.edu.kg/images/emails/hengyuanliu.png"/>)
 4. Li Yuan (<img src="https://www.gd.edu.kg/images/emails/leeyuan.png"/>)
 
 <hr>
